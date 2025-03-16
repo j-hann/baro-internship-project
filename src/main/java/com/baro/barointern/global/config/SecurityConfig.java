@@ -5,10 +5,6 @@ import com.baro.barointern.global.jwt.JwtFilter;
 import com.baro.barointern.global.jwt.JwtProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,6 +29,7 @@ public class SecurityConfig {
 	 * - 회원가입 로그인은 인증 없이 접근 가능
 	 * - admin으로 시작하는 url은 ADMIN 권한 있어야지 접근 가능
 	 * - 이외 요청들도 인증 필요
+	 * - todo : globalhandler 처리
 	 */
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -63,29 +60,6 @@ public class SecurityConfig {
 
 		return new BCryptPasswordEncoder();
 	}
-
-	/**
-	 * 인증 제공자 -UserDetailsService 통해서 사용자 정보 조회 후 비밀번호 검증
-	 * - todo : 사용 안하면 지우기
-	 */
-//	@Bean
-//	public AuthenticationProvider authenticationProvider() {
-//		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//		authenticationProvider.setUserDetailsService(userDetailsService);
-//		authenticationProvider.setPasswordEncoder(passwordEncoder());
-//
-//		return authenticationProvider;
-//	}
-
-	/**
-	 * 인증 관리자
-	 * - 시큐리티에서 인증 처리
-	 * - todo : 사용 안하면 지우기
-	 */
-//	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//
-//		return authenticationConfiguration.getAuthenticationManager();
-//	}
 
 
 	@Bean

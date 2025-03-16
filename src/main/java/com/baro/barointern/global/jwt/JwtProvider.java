@@ -3,6 +3,7 @@ package com.baro.barointern.global.jwt;
 
 import com.baro.barointern.domain.user.entity.User;
 import com.baro.barointern.global.auth.UserDetailsServiceImpl;
+import com.baro.barointern.global.enums.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

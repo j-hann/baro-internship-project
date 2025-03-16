@@ -84,15 +84,7 @@ public class UserService {
 	/**
 	 * 관리자 권한 부여 서비스 메서드
 	 */
-	public GrantAdminRoleResponseDto grantAdminRole(Long userId, String userName) {
-		//로그인한 유저 조회
-		User requestUser = userRepository.findByName(userName)
-			.orElseThrow(() -> new BusinessException(ExceptionType.NOT_FOUND));
-
-		//관리자 role 검증
-		if(requestUser.getRole() != UserRole.ADMIN){
-			throw new BusinessException(ExceptionType.ACCESS_DENIED);
-		}
+	public GrantAdminRoleResponseDto grantAdminRole(Long userId) {
 
 		//관리자 권한 부여할 유저 조회
 		User user = userRepository.findById(userId)
