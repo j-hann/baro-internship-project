@@ -20,7 +20,8 @@ public enum ExceptionType {
 	ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
 
 	// 500 INTERNAL_SERVER_ERROR
-	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 오류가 발생했습니다.")
+	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 오류가 발생했습니다."),
+
 
 	;
 

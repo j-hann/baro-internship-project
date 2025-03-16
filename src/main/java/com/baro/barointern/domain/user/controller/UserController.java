@@ -7,6 +7,7 @@ import com.baro.barointern.domain.user.dto.SignUpRequestDto;
 import com.baro.barointern.domain.user.dto.SignUpResponseDto;
 import com.baro.barointern.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,7 @@ public class UserController {
 	 * - ADMIN role만 권한 부여 가능
 	 * - userId로 특정 유저 권한 부여
 	 */
+	@SecurityRequirement(name = "Bearer Authentication")
 	@Operation(summary = "관리자 권한 부여", description = "유저에게 관리자 권한이 부여됩니다." )
 	@PatchMapping("admin/users/{userId}/roles")
 	public ResponseEntity<GrantAdminRoleResponseDto> grantAdminRole(@PathVariable Long userId){

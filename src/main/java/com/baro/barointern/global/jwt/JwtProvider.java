@@ -3,12 +3,13 @@ package com.baro.barointern.global.jwt;
 
 import com.baro.barointern.domain.user.entity.User;
 import com.baro.barointern.global.auth.UserDetailsServiceImpl;
-import com.baro.barointern.global.enums.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
@@ -71,7 +72,7 @@ public class JwtProvider {
 	public boolean validateToken(String token) {
 		//토큰이 없거나 토큰이 만료되었을 경우
 		if (!StringUtils.hasText(token) || isTokenExpired(token)) {
-			return false;
+			throw new JwtException("유효하지 않은 인증 토큰입니다.");
 		}
 		try {
 			Jwts.parserBuilder()
@@ -81,8 +82,14 @@ public class JwtProvider {
 
 			//검증 성공시
 			return true;
-		} catch (JwtException e) {
-			return false;
+		} catch (MalformedJwtException e) {
+			throw new JwtException("잘못된 JWT 서명입니다.");
+		} catch (ExpiredJwtException e) {
+			throw new JwtException("만료된 JWT 토큰입니다.");
+		} catch (UnsupportedJwtException e) {
+			throw new JwtException("지원되지 않는 JWT 토큰입니다.");
+		} catch (IllegalArgumentException e) {
+			throw new JwtException("JWT 클레임이 비어 있습니다.");
 		}
 	}
 
